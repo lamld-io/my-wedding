@@ -1,0 +1,455 @@
+@import "tailwindcss";
+
+/* ============================================================
+   Design System - Wedding Invitation
+   Duy Lam & Thanh Thoảng - 11.04.2026
+   ============================================================ */
+
+@theme {
+  --color-primary: #DB2777;
+  --color-primary-light: #F472B6;
+  --color-primary-dark: #831843;
+  --color-gold: #CA8A04;
+  --color-gold-light: #D4A843;
+  --color-gold-shimmer: #F5D77A;
+  --color-bg-rose: #FDF2F8;
+  --color-bg-cream: #FFF8F0;
+  --color-text-heading: #831843;
+  --color-text-body: #6B2148;
+  --color-text-muted: #9A4D6E;
+
+  --font-script: "Great Vibes", cursive;
+  --font-serif: "Cormorant Infant", serif;
+  --font-sans: "Montserrat", sans-serif;
+}
+
+/* ============================================================
+   Base Styles
+   ============================================================ */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  color: var(--color-text-body);
+  background-color: var(--color-bg-rose);
+  overflow-x: hidden;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg-rose);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-primary-light);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary);
+}
+
+/* ============================================================
+   Animations
+   ============================================================ */
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes blurIn {
+  from {
+    opacity: 0;
+    filter: blur(20px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+@keyframes shimmerGold {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+@keyframes heartBeat {
+  0%, 100% {
+    transform: scale(1);
+  }
+  14% {
+    transform: scale(1.15);
+  }
+  28% {
+    transform: scale(1);
+  }
+  42% {
+    transform: scale(1.15);
+  }
+  70% {
+    transform: scale(1);
+  }
+}
+
+@keyframes floatPetal {
+  0% {
+    transform: translateY(-10vh) translateX(0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(110vh) translateX(100px) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+@keyframes bounce-soft {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(219, 39, 119, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(219, 39, 119, 0.6);
+  }
+}
+
+@keyframes rotate-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes slide-in-reveal {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+/* ============================================================
+   Animation Utility Classes
+   ============================================================ */
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.animate-fade-in-down {
+  animation: fadeInDown 0.8s ease-out forwards;
+}
+
+.animate-fade-in-left {
+  animation: fadeInLeft 0.8s ease-out forwards;
+}
+
+.animate-fade-in-right {
+  animation: fadeInRight 0.8s ease-out forwards;
+}
+
+.animate-fade-in-scale {
+  animation: fadeInScale 0.7s ease-out forwards;
+}
+
+.animate-blur-in {
+  animation: blurIn 1.2s ease-out forwards;
+}
+
+.animate-heartbeat {
+  animation: heartBeat 2s ease-in-out infinite;
+}
+
+.animate-bounce-soft {
+  animation: bounce-soft 2s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.animate-rotate-slow {
+  animation: rotate-slow 20s linear infinite;
+}
+
+/* Shimmer gold text effect */
+.shimmer-gold {
+  background: linear-gradient(
+    90deg,
+    var(--color-gold) 0%,
+    var(--color-gold-shimmer) 25%,
+    var(--color-gold) 50%,
+    var(--color-gold-shimmer) 75%,
+    var(--color-gold) 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmerGold 3s linear infinite;
+}
+
+/* Gold ornament line */
+.gold-line {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--color-gold),
+    var(--color-gold-shimmer),
+    var(--color-gold),
+    transparent
+  );
+}
+
+/* Glass morphism card */
+.glass-card {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+/* Image loading skeleton */
+.img-skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--color-bg-rose) 0%,
+    #FCE7F3 50%,
+    var(--color-bg-rose) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmerGold 1.5s ease infinite;
+}
+
+/* ============================================================
+   Reduced Motion
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* ============================================================
+   Section Spacing
+   ============================================================ */
+
+.section-padding {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+}
+
+@media (min-width: 768px) {
+  .section-padding {
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .section-padding {
+    padding-top: 8rem;
+    padding-bottom: 8rem;
+  }
+}
+
+/* ============================================================
+   Gallery Grid Responsive System
+   ============================================================ */
+
+/* Container: fluid with max-width scaling */
+.gallery-container {
+  width: 100%;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  margin: 0 auto;
+}
+
+/* Base grid: 2 columns for small mobile */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-auto-rows: 140px;
+  grid-auto-flow: dense;
+  gap: 6px;
+}
+
+/*
+ * Mobile (< 640px): Force all non-first items to 1x1.
+ * First item (hero featured) spans 2 cols.
+ * .tail-fill items keep their computed inline span to fill gaps.
+ * Inline styles are overridden with !important.
+ */
+@media (max-width: 639px) {
+  .gallery-item:not(.tail-fill) {
+    grid-column: span 1 !important;
+    grid-row: span 1 !important;
+  }
+  .gallery-item:nth-child(1) {
+    grid-column: span 2 !important;
+    grid-row: span 2 !important;
+  }
+  /* Tail-fill items giữ nguyên inline span để lấp đầy hàng cuối */
+  .gallery-item.tail-fill {
+    grid-row: span 1 !important;
+  }
+}
+
+/* ---- Small mobile (≥ 420px) ---- */
+@media (min-width: 420px) {
+  .gallery-grid {
+    grid-auto-rows: 160px;
+    gap: 8px;
+  }
+}
+
+/* ---- Tablet (≥ 640px) - 3 columns ---- */
+@media (min-width: 640px) {
+  .gallery-container {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+  .gallery-grid {
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 170px;
+    gap: 10px;
+  }
+  /* Inline styles from React take effect here (gridColumn, gridRow).
+     No !important override needed — the mobile override no longer applies. */
+}
+
+/* ---- Laptop (≥ 1024px) - 4 columns ---- */
+@media (min-width: 1024px) {
+  .gallery-container {
+    padding-left: 2rem;
+    padding-right: 2rem;
+    max-width: 1200px;
+  }
+  .gallery-grid {
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: 180px;
+    gap: 12px;
+  }
+}
+
+/* ---- Desktop (≥ 1440px) - 4 columns, larger ---- */
+@media (min-width: 1440px) {
+  .gallery-container {
+    max-width: 1400px;
+  }
+  .gallery-grid {
+    grid-auto-rows: 200px;
+    gap: 14px;
+  }
+}
+
+/* ---- Full HD (≥ 1680px) - 5 columns ---- */
+@media (min-width: 1680px) {
+  .gallery-container {
+    max-width: 1600px;
+  }
+  .gallery-grid {
+    grid-template-columns: repeat(5, 1fr);
+    grid-auto-rows: 190px;
+    gap: 14px;
+  }
+}
+
+/* ---- 2K+ (≥ 2200px) - 5 columns, bigger ---- */
+@media (min-width: 2200px) {
+  .gallery-container {
+    max-width: 2000px;
+  }
+  .gallery-grid {
+    grid-auto-rows: 230px;
+    gap: 16px;
+  }
+}
+
+
+
