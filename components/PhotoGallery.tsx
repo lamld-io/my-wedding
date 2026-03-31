@@ -1,13 +1,13 @@
 "use client";
 
-import { useState, useMemo, useRef, useEffect } from "react";
-import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
 import { GALLERY_PHOTOS } from "@/lib/constants";
-import ScrollReveal from "./ScrollReveal";
+import { AnimatePresence, motion } from "framer-motion";
+import { Camera, ChevronDown, Images } from "lucide-react";
+import Image from "next/image";
+import { useEffect, useMemo, useRef, useState } from "react";
 import GoldOrnament from "./GoldOrnament";
 import Lightbox from "./Lightbox";
-import { Camera, Images, ChevronDown } from "lucide-react";
+import ScrollReveal from "./ScrollReveal";
 
 const INITIAL_COUNT = 15;
 const LOAD_MORE_COUNT = 11;
@@ -63,10 +63,7 @@ function getBentoSpan(index: number, totalVisible: number): [number, number] {
  *
  * @returns colSpan cần thiết cho item cuối, hoặc 1 nếu không cần fill
  */
-function getLastItemFillSpan(
-  totalVisible: number,
-  gridCols: number
-): number {
+function getLastItemFillSpan(totalVisible: number, gridCols: number): number {
   const cols = Math.max(gridCols, 2);
 
   if (cols <= 2) {
@@ -148,7 +145,7 @@ export default function PhotoGallery() {
 
   const handleLoadMore = () => {
     setVisibleCount((prev) =>
-      Math.min(prev + LOAD_MORE_COUNT, sortedPhotos.length)
+      Math.min(prev + LOAD_MORE_COUNT, sortedPhotos.length),
     );
   };
 
@@ -179,7 +176,7 @@ export default function PhotoGallery() {
           </h2>
           <GoldOrnament variant="small-divider" />
           <p className="font-serif text-text-muted text-sm md:text-base mt-4">
-            Những khoảnh khắc đáng nhớ của chúng tôi
+            Những khoảnh khắc đáng nhớ
           </p>
         </ScrollReveal>
 
@@ -187,12 +184,18 @@ export default function PhotoGallery() {
         <div className="gallery-grid" ref={gridRef}>
           <AnimatePresence mode="popLayout">
             {visiblePhotos.map((photo, index) => {
-              let [colSpan, rowSpan] = getBentoSpan(index, visiblePhotos.length);
+              let [colSpan, rowSpan] = getBentoSpan(
+                index,
+                visiblePhotos.length,
+              );
 
               // Item cuối cùng: tính xem cần span thêm bao nhiêu cột
               const isLastItem = index === visiblePhotos.length - 1;
               if (isLastItem) {
-                const fillSpan = getLastItemFillSpan(visiblePhotos.length, gridCols);
+                const fillSpan = getLastItemFillSpan(
+                  visiblePhotos.length,
+                  gridCols,
+                );
                 if (fillSpan > 1) {
                   colSpan = fillSpan;
                   rowSpan = 1;
@@ -216,7 +219,7 @@ export default function PhotoGallery() {
                         : Math.min(index * 0.04, 0.6),
                     ease: [0.25, 0.46, 0.45, 0.94],
                   }}
-                  className={`gallery-item${isTailFill ? ' tail-fill' : ''}`}
+                  className={`gallery-item${isTailFill ? " tail-fill" : ""}`}
                   style={{
                     gridColumn: `span ${colSpan}`,
                     gridRow: `span ${rowSpan}`,
@@ -228,9 +231,7 @@ export default function PhotoGallery() {
                     role="button"
                     tabIndex={0}
                     aria-label={`Xem ảnh: ${photo.alt}`}
-                    onKeyDown={(e) =>
-                      e.key === "Enter" && openLightbox(index)
-                    }
+                    onKeyDown={(e) => e.key === "Enter" && openLightbox(index)}
                   >
                     <Image
                       src={photo.src}

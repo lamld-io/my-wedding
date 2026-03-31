@@ -58,7 +58,7 @@ export default function VideoDirections({ videoUrl }: VideoDirectionsProps) {
                   </p>
                 </div>
                 <p className="font-sans text-xs text-text-muted/60 mt-3">
-                  Vui lòng quay lại sau để xem hướng dẫn chi tiết
+                  Mọi người vui lòng quay lại sau để xem hướng dẫn chi tiết nha!!!
                 </p>
               </div>
             )}

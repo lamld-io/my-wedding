@@ -1,14 +1,17 @@
 "use client";
 
-import Image from "next/image";
-import { WEDDING, SECTION_IMAGES } from "@/lib/constants";
-import ScrollReveal from "./ScrollReveal";
-import GoldOrnament from "./GoldOrnament";
+import { SECTION_IMAGES, WEDDING } from "@/lib/constants";
 import { Heart } from "lucide-react";
+import Image from "next/image";
+import GoldOrnament from "./GoldOrnament";
+import ScrollReveal from "./ScrollReveal";
 
 export default function CoupleSection() {
   return (
-    <section id="couple" className="section-padding bg-white relative overflow-hidden">
+    <section
+      id="couple"
+      className="section-padding bg-white relative overflow-hidden"
+    >
       {/* Decorative background */}
       <div className="absolute top-0 left-0 w-64 h-64 bg-primary/5 rounded-full -translate-x-1/2 -translate-y-1/2" />
       <div className="absolute bottom-0 right-0 w-80 h-80 bg-gold/5 rounded-full translate-x-1/3 translate-y-1/3" />
@@ -51,21 +54,27 @@ export default function CoupleSection() {
             </h3>
             <div className="gold-line w-16 mx-auto mb-3" />
             <p className="font-serif text-text-muted text-sm md:text-base max-w-xs mx-auto leading-relaxed">
-              Con trai yêu quý của gia đình, người luôn mang trong mình tình yêu chân thành và ấm áp.
+              Út Nam
             </p>
           </ScrollReveal>
 
           {/* Heart Center - Desktop only */}
           <div className="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
             <div className="w-14 h-14 rounded-full bg-white shadow-lg flex items-center justify-center border border-primary-light/30">
-              <Heart className="w-6 h-6 text-primary animate-heartbeat" fill="currentColor" />
+              <Heart
+                className="w-6 h-6 text-primary animate-heartbeat"
+                fill="currentColor"
+              />
             </div>
           </div>
 
           {/* Heart Center - Mobile */}
           <div className="flex md:hidden justify-center -my-4">
             <div className="w-12 h-12 rounded-full bg-white shadow-lg flex items-center justify-center border border-primary-light/30">
-              <Heart className="w-5 h-5 text-primary animate-heartbeat" fill="currentColor" />
+              <Heart
+                className="w-5 h-5 text-primary animate-heartbeat"
+                fill="currentColor"
+              />
             </div>
           </div>
 
@@ -92,7 +101,7 @@ export default function CoupleSection() {
             </h3>
             <div className="gold-line w-16 mx-auto mb-3" />
             <p className="font-serif text-text-muted text-sm md:text-base max-w-xs mx-auto leading-relaxed">
-              Cô gái dịu dàng với nụ cười tỏa nắng, người đã làm trái tim chú rể thổn thức từ cái nhìn đầu tiên.
+              Trưởng Nữ
             </p>
           </ScrollReveal>
         </div>
