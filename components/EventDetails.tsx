@@ -33,14 +33,14 @@ export default function EventDetails() {
     <section id="event" className="section-padding bg-bg-cream relative overflow-hidden">
       {/* Background decorative image */}
       <div className="absolute top-0 right-0 w-1/3 h-full opacity-5">
-        <Image
+        {/* <Image
           src={SECTION_IMAGES.eventBg}
           alt=""
           fill
           className="object-cover"
           sizes="33vw"
           quality={30}
-        />
+        /> */}
       </div>
 
       <div className="container mx-auto px-4 md:px-6 relative z-10">
