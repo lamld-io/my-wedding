@@ -244,27 +244,7 @@ export default function PhotoGallery() {
                     />
 
                     {/* Hover overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-400">
-                      <div className="absolute bottom-0 left-0 right-0 p-3 md:p-4 transform translate-y-3 group-hover:translate-y-0 transition-transform duration-400">
-                        <p className="font-serif text-white text-xs md:text-sm leading-snug">
-                          {photo.alt}
-                        </p>
-                        <div className="flex items-center gap-1 mt-1.5">
-                          <Images className="w-3 h-3 text-gold-light" />
-                          <span className="font-sans text-[10px] text-white/60 uppercase tracking-wider">
-                            {photo.group === "hero"
-                              ? "Highlight"
-                              : photo.group === "outdoor"
-                                ? "Ngoại Cảnh"
-                                : photo.group === "studio"
-                                  ? "Studio"
-                                  : photo.group === "artistic"
-                                    ? "Nghệ Thuật"
-                                    : "Chân Dung"}
-                          </span>
-                        </div>
-                      </div>
-                    </div>
+                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-400" />
 
                     {/* Inner shadow for depth */}
                     <div className="absolute inset-0 shadow-[inset_0_-2px_8px_rgba(0,0,0,0.08)] rounded-lg md:rounded-xl pointer-events-none" />
