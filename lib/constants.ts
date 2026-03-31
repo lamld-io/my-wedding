@@ -283,8 +283,8 @@ export const GALLERY_PHOTOS: WeddingPhoto[] = [
   },
 ];
 
-// Ảnh cho từng section cụ thể
-export const SECTION_IMAGES = {
+// Ảnh cho từng section cụ thể — có thể ghi đè bằng biến môi trường NEXT_PUBLIC_IMG_*
+const SECTION_IMAGES_DEFAULTS = {
   splash: "/images/494A1302.jpg",
   hero: "/images/494A1134.jpg",
   bride: "/images/494A1822.jpg",
@@ -295,3 +295,15 @@ export const SECTION_IMAGES = {
   eventBg: "/images/494A1240.jpg",
   footer: "/images/494A1277.jpg",
 } as const;
+
+export const SECTION_IMAGES = {
+  splash: process.env.NEXT_PUBLIC_IMG_SPLASH || SECTION_IMAGES_DEFAULTS.splash,
+  hero: process.env.NEXT_PUBLIC_IMG_HERO || SECTION_IMAGES_DEFAULTS.hero,
+  bride: process.env.NEXT_PUBLIC_IMG_BRIDE || SECTION_IMAGES_DEFAULTS.bride,
+  groom: process.env.NEXT_PUBLIC_IMG_GROOM || SECTION_IMAGES_DEFAULTS.groom,
+  coupleLeft: process.env.NEXT_PUBLIC_IMG_COUPLE_LEFT || SECTION_IMAGES_DEFAULTS.coupleLeft,
+  coupleRight: process.env.NEXT_PUBLIC_IMG_COUPLE_RIGHT || SECTION_IMAGES_DEFAULTS.coupleRight,
+  countdown: process.env.NEXT_PUBLIC_IMG_COUNTDOWN || SECTION_IMAGES_DEFAULTS.countdown,
+  eventBg: process.env.NEXT_PUBLIC_IMG_EVENT_BG || SECTION_IMAGES_DEFAULTS.eventBg,
+  footer: process.env.NEXT_PUBLIC_IMG_FOOTER || SECTION_IMAGES_DEFAULTS.footer,
+};
