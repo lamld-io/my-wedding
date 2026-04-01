@@ -1,10 +1,10 @@
 "use client";
 
-import Image from "next/image";
-import { WEDDING, SECTION_IMAGES } from "@/lib/constants";
-import ScrollReveal from "./ScrollReveal";
-import GoldOrnament from "./GoldOrnament";
+import { SECTION_IMAGES, WEDDING } from "@/lib/constants";
 import { Heart } from "lucide-react";
+import Image from "next/image";
+import GoldOrnament from "./GoldOrnament";
+import ScrollReveal from "./ScrollReveal";
 
 export default function Footer() {
   return (
@@ -26,15 +26,13 @@ export default function Footer() {
         <ScrollReveal>
           <GoldOrnament variant="frame-top" className="mx-auto mb-6" />
 
-          <p className="font-serif text-gold-light/80 tracking-[0.2em] uppercase text-xs mb-4">
-            Thank You
-          </p>
+          <p className="font-serif text-gold-light/80 tracking-[0.2em] uppercase text-xs mb-4"></p>
 
           <h2 className="font-script text-3xl md:text-5xl text-white mb-3">
             Cảm ơn bạn
           </h2>
           <p className="font-serif text-white/80 text-base md:text-lg max-w-md mx-auto mb-6">
-            đã dành thời gian đến chung vui cùng chúng tôi trong ngày trọng đại này
+            đã dành thời gian đến chung vui trong ngày trọng đại này
           </p>
 
           <div className="gold-line w-20 mx-auto mb-6" />
@@ -63,7 +61,10 @@ export default function Footer() {
         <div className="mt-12 pt-6 border-t border-white/10">
           <p className="font-sans text-[10px] text-white/30 tracking-wider">
             Made with{" "}
-            <Heart className="w-2.5 h-2.5 inline text-primary-light" fill="currentColor" />{" "}
+            <Heart
+              className="w-2.5 h-2.5 inline text-primary-light"
+              fill="currentColor"
+            />{" "}
             for our special day
           </p>
         </div>
