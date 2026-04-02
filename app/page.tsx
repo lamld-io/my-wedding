@@ -30,7 +30,7 @@ function HomeContent() {
   return (
     <main className="relative">
       {/* Splash Screen - fullscreen overlay */}
-      <SplashScreen />
+      <SplashScreen guestEvent={guest?.event} />
 
       {/* Floating Petals - subtle background effect */}
       <FloatingPetals />
@@ -39,7 +39,7 @@ function HomeContent() {
       <MusicPlayer />
 
       {/* Main Content Sections */}
-      <HeroSection />
+      <HeroSection guestEvent={guest?.event} />
       <CoupleSection />
       <InvitationCard guest={guest} isLoading={isLoading} />
       <EventDetails guestEvent={guest?.event} />
@@ -47,7 +47,7 @@ function HomeContent() {
       <MapSection guestEvent={guest?.event} />
       <VideoDirections guestEvent={guest?.event} />
       <WishBook />
-      <Footer />
+      <Footer guestEvent={guest?.event} />
     </main>
   );
 }

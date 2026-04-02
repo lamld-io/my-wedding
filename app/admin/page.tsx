@@ -3,6 +3,8 @@
 import { useState, useEffect, useCallback } from "react";
 import type { Guest, GuestEvent, Venue, InvitationTemplate } from "@/lib/types";
 import AdminSelect from "@/components/AdminSelect";
+import AdminDatePicker from "@/components/AdminDatePicker";
+import AdminTimePicker from "@/components/AdminTimePicker";
 import { WEDDING } from "@/lib/constants";
 import {
   Plus,
@@ -30,6 +32,7 @@ function generateInviteUrl(id: string) {
   if (typeof window === "undefined") return `/?invite=${id}`;
   return `${window.location.origin}/?invite=${id}`;
 }
+
 
 /* ═══════════════════ Venue Form ═══════════════════ */
 
@@ -213,20 +216,42 @@ function GuestForm({ initialData, venues, templates, onSubmit, onCancel, isSubmi
   const [guestTitle, setGuestTitle] = useState(initialData?.guestTitle || "");
   const [invitationText, setInvitationText] = useState(initialData?.invitationText || "");
   const [venueId, setVenueId] = useState(initialData?.venueId || "");
-  const [showTimeSettings, setShowTimeSettings] = useState(!!initialData?.event?.time || !!initialData?.event?.displayDate);
+  const [showTimeSettings, setShowTimeSettings] = useState(!!initialData?.event?.time || !!initialData?.event?.displayDate || !!initialData?.event?.receptionTime);
 
   const [eventDisplayDate, setEventDisplayDate] = useState(initialData?.event?.displayDate || "");
-  const [eventTime, setEventTime] = useState(initialData?.event?.time || "");
+  const [receptionTime, setReceptionTime] = useState(initialData?.event?.receptionTime || "");
+  const [ceremonyTime, setCeremonyTime] = useState(initialData?.event?.time || "");
+  const [sameAsReception, setSameAsReception] = useState(() => {
+    // Chỉ tắt khi edit khách mời có giờ khai tiệc KHÁC giờ đón khách
+    if (initialData?.event?.time && initialData?.event?.receptionTime) {
+      return initialData.event.receptionTime === initialData.event.time;
+    }
+    return true; // Mặc định luôn bật
+  });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const event: GuestEvent | null =
-      eventDisplayDate || eventTime
-        ? {
-            ...(eventDisplayDate && { displayDate: eventDisplayDate }),
-            ...(eventTime && { time: eventTime }),
-          }
-        : null;
+    const finalCeremonyTime = sameAsReception ? receptionTime : ceremonyTime;
+    const hasEvent = eventDisplayDate || receptionTime || finalCeremonyTime;
+
+    // Parse displayDate → ISO date cho các component khác sử dụng
+    let isoDate: string | undefined;
+    if (eventDisplayDate) {
+      const m = eventDisplayDate.match(/ngày\s+(\d{1,2})\s+tháng\s+(\d{1,2})\s+năm\s+(\d{4})/);
+      if (m) {
+        const d = new Date(parseInt(m[3]), parseInt(m[2]) - 1, parseInt(m[1]), 12, 0, 0);
+        isoDate = d.toISOString();
+      }
+    }
+
+    const event: GuestEvent | null = hasEvent
+      ? {
+          ...(isoDate && { date: isoDate }),
+          ...(eventDisplayDate && { displayDate: eventDisplayDate }),
+          ...(receptionTime && { receptionTime }),
+          ...(finalCeremonyTime && { time: finalCeremonyTime }),
+        }
+      : null;
 
     await onSubmit({ hostName, hostSide, guestName, guestTitle, invitationText, venueId: venueId || undefined, event });
   };
@@ -325,28 +350,54 @@ function GuestForm({ initialData, venues, templates, onSubmit, onCancel, isSubmi
 
         {showTimeSettings && (
           <div className="mt-4 space-y-4 pl-2 border-l-2 border-gold/20 animate-fade-in-up">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <label className="admin-label">Ngày hiển thị</label>
-                <input
-                  type="text"
-                  value={eventDisplayDate}
-                  onChange={(e) => setEventDisplayDate(e.target.value)}
-                  placeholder={WEDDING.displayDateFull}
-                  className="admin-input"
-                />
-              </div>
-              <div>
-                <label className="admin-label">Thời gian</label>
-                <input
-                  type="text"
-                  value={eventTime}
-                  onChange={(e) => setEventTime(e.target.value)}
-                  placeholder={WEDDING.time.ceremony}
-                  className="admin-input"
-                />
-              </div>
+            {/* Ngày hiển thị */}
+            <div>
+              <label className="admin-label">Ngày hiển thị</label>
+              <AdminDatePicker
+                value={eventDisplayDate}
+                onChange={setEventDisplayDate}
+                placeholder={WEDDING.displayDateFull}
+                weddingDate={WEDDING.date}
+              />
+              <p className="text-[10px] text-white/30 mt-1">Để trống sẽ dùng ngày mặc định</p>
             </div>
+
+            {/* Đón khách */}
+            <div>
+              <label className="admin-label">Giờ đón khách</label>
+              <AdminTimePicker
+                value={receptionTime}
+                onChange={setReceptionTime}
+                placeholder={WEDDING.time.reception}
+              />
+              <p className="text-[10px] text-white/30 mt-1">Để trống sẽ dùng giờ mặc định ({WEDDING.time.reception})</p>
+            </div>
+
+            {/* Toggle khai tiệc */}
+            <div
+              className="admin-toggle"
+              onClick={() => setSameAsReception(!sameAsReception)}
+            >
+              <div className={`admin-toggle-track ${sameAsReception ? "admin-toggle-track-active" : ""}`}>
+                <div className="admin-toggle-thumb" />
+              </div>
+              <span className={`admin-toggle-label ${sameAsReception ? "admin-toggle-label-active" : ""}`}>
+                Giờ khai tiệc trùng với đón khách
+              </span>
+            </div>
+
+            {/* Khai tiệc - chỉ hiện khi toggle tắt */}
+            {!sameAsReception && (
+              <div className="animate-fade-in-up">
+                <label className="admin-label">Giờ khai tiệc</label>
+                <AdminTimePicker
+                  value={ceremonyTime}
+                  onChange={setCeremonyTime}
+                  placeholder={WEDDING.time.ceremony}
+                />
+                <p className="text-[10px] text-white/30 mt-1">Để trống sẽ dùng giờ mặc định ({WEDDING.time.ceremony})</p>
+              </div>
+            )}
           </div>
         )}
       </div>

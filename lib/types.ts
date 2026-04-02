@@ -15,7 +15,8 @@ export interface Venue {
 export interface GuestEvent {
   date?: string;          // ISO date — ghi đè WEDDING.date
   displayDate?: string;   // ghi đè WEDDING.displayDateFull
-  time?: string;          // ghi đè WEDDING.time.ceremony
+  receptionTime?: string; // giờ đón khách, ghi đè WEDDING.time.reception
+  time?: string;          // giờ khai tiệc, ghi đè WEDDING.time.ceremony
   // Venue fields — tự điền từ venueId, giữ fallback cho backward compat
   venueName?: string;
   venueAddress?: string;

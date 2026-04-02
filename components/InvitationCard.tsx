@@ -2,7 +2,8 @@
 
 import { useCountdown } from "@/hooks/useCountdown";
 import { SECTION_IMAGES, WEDDING } from "@/lib/constants";
-import type { Guest } from "@/lib/types";
+import type { Guest, GuestEvent } from "@/lib/types";
+import { getCountdownDate, getFullDate } from "@/lib/utils";
 import Image from "next/image";
 import GoldOrnament from "./GoldOrnament";
 import ScrollReveal from "./ScrollReveal";
@@ -27,10 +28,9 @@ function InvitationSkeleton() {
 }
 
 /* ────────────────── Default countdown view ────────────────── */
-function DefaultCountdown() {
-  const { days, hours, minutes, seconds, isExpired } = useCountdown(
-    WEDDING.date,
-  );
+function DefaultCountdown({ guestEvent }: { guestEvent?: GuestEvent | null }) {
+  const countdownDate = getCountdownDate(guestEvent);
+  const { days, hours, minutes, seconds, isExpired } = useCountdown(countdownDate);
 
   const timeBlocks = [
     { value: days, label: "Ngày" },
@@ -74,7 +74,7 @@ function DefaultCountdown() {
 
       <ScrollReveal delay={0.4}>
         <p className="font-serif text-base md:text-lg text-white/80 mt-8 tracking-wide">
-          {WEDDING.displayDateFull}
+          {getFullDate(guestEvent)}
         </p>
       </ScrollReveal>
     </>
@@ -145,11 +145,11 @@ function PersonalizedInvitation({ guest }: { guest: Guest }) {
       </ScrollReveal>
 
       {/* Date display */}
-      {/* <ScrollReveal delay={0.75}>
+      <ScrollReveal delay={0.75}>
         <p className="font-serif text-base md:text-lg text-white/80 mt-6 tracking-wide">
-          {guest.event?.displayDate || WEDDING.displayDateFull}
+          {getFullDate(guest.event)}
         </p>
-      </ScrollReveal> */}
+      </ScrollReveal>
     </>
   );
 }
@@ -183,7 +183,7 @@ export default function InvitationCard({
         ) : guest ? (
           <PersonalizedInvitation guest={guest} />
         ) : (
-          <DefaultCountdown />
+          <DefaultCountdown guestEvent={null} />
         )}
       </div>
     </section>

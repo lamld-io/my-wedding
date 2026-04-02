@@ -5,8 +5,15 @@ import { Heart } from "lucide-react";
 import Image from "next/image";
 import GoldOrnament from "./GoldOrnament";
 import ScrollReveal from "./ScrollReveal";
+import type { GuestEvent } from "@/lib/types";
+import { getShortDate } from "@/lib/utils";
 
-export default function Footer() {
+interface FooterProps {
+  guestEvent?: GuestEvent | null;
+}
+
+export default function Footer({ guestEvent }: FooterProps) {
+  const displayDate = getShortDate(guestEvent);
   return (
     <footer id="footer" className="relative py-16 md:py-24 overflow-hidden">
       {/* Background Image */}
@@ -51,7 +58,7 @@ export default function Footer() {
           </div>
 
           <p className="font-serif text-gold-light tracking-widest text-sm">
-            {WEDDING.displayDate}
+            {displayDate}
           </p>
 
           <GoldOrnament variant="frame-bottom" className="mx-auto mt-8" />

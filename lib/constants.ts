@@ -18,7 +18,7 @@ export const WEDDING = {
   displayDateFull: "Thứ Bảy, ngày 11 tháng 04 năm 2026",
   time: {
     reception: "13:00",
-    ceremony: "13:00 - 17:00",
+    ceremony: "13:00",
     receptionLabel: "Đón khách",
     ceremonyLabel: "Khai tiệc",
   },

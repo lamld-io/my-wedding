@@ -4,8 +4,15 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { WEDDING, SECTION_IMAGES } from "@/lib/constants";
 import { ChevronDown } from "lucide-react";
+import type { GuestEvent } from "@/lib/types";
+import { getShortDate } from "@/lib/utils";
 
-export default function HeroSection() {
+interface HeroSectionProps {
+  guestEvent?: GuestEvent | null;
+}
+
+export default function HeroSection({ guestEvent }: HeroSectionProps) {
+  const displayDate = getShortDate(guestEvent);
   return (
     <section
       id="hero"
@@ -76,7 +83,7 @@ export default function HeroSection() {
           transition={{ delay: 1.6, duration: 0.8 }}
           className="font-serif text-xl md:text-2xl text-white/90 tracking-widest"
         >
-          {WEDDING.displayDate}
+          {displayDate}
         </motion.p>
 
         {/* Quote */}

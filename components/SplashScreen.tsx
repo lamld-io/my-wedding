@@ -5,8 +5,15 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { WEDDING, SECTION_IMAGES } from "@/lib/constants";
 import GoldOrnament from "./GoldOrnament";
+import type { GuestEvent } from "@/lib/types";
+import { getShortDate } from "@/lib/utils";
 
-export default function SplashScreen() {
+interface SplashScreenProps {
+  guestEvent?: GuestEvent | null;
+}
+
+export default function SplashScreen({ guestEvent }: SplashScreenProps) {
+  const displayDate = getShortDate(guestEvent);
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -88,7 +95,7 @@ export default function SplashScreen() {
               transition={{ delay: 1.5, duration: 0.8 }}
               className="font-serif text-lg md:text-xl text-gold-light tracking-widest mb-10"
             >
-              {WEDDING.displayDate}
+              {displayDate}
             </motion.p>
 
             {/* Bottom Ornament */}

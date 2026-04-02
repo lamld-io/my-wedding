@@ -6,24 +6,29 @@ import { StaggerContainer, StaggerItem } from "./ScrollReveal";
 import GoldOrnament from "./GoldOrnament";
 import { Calendar, Clock, MapPin } from "lucide-react";
 import type { GuestEvent } from "@/lib/types";
+import { getFullDate } from "@/lib/utils";
 
 interface EventDetailsProps {
   guestEvent?: GuestEvent | null;
 }
 
 function getEvents(guestEvent?: GuestEvent | null) {
+  const receptionTime = guestEvent?.receptionTime || WEDDING.time.reception;
+  const ceremonyTime = guestEvent?.time || WEDDING.time.ceremony;
+  const isSameTime = receptionTime === ceremonyTime;
+
   return [
     {
       icon: Calendar,
       title: "Ngày Tổ Chức",
-      detail: guestEvent?.displayDate || WEDDING.displayDateFull,
+      detail: getFullDate(guestEvent),
       sub: "",
     },
     {
       icon: Clock,
       title: "Thời Gian",
-      detail: `${WEDDING.time.receptionLabel}: ${WEDDING.time.reception}`,
-      sub: `${WEDDING.time.ceremonyLabel}: ${guestEvent?.time || WEDDING.time.ceremony}`,
+      detail: `${WEDDING.time.receptionLabel}: ${receptionTime}`,
+      sub: isSameTime ? "" : `${WEDDING.time.ceremonyLabel}: ${ceremonyTime}`,
     },
     {
       icon: MapPin,
