@@ -1,12 +1,11 @@
 "use client";
 
 import { WEDDING } from "@/lib/constants";
-import ScrollReveal from "./ScrollReveal";
-import { StaggerContainer, StaggerItem } from "./ScrollReveal";
-import GoldOrnament from "./GoldOrnament";
-import { Calendar, Clock, MapPin } from "lucide-react";
 import type { GuestEvent } from "@/lib/types";
 import { getFullDate } from "@/lib/utils";
+import { Calendar, Clock, MapPin } from "lucide-react";
+import GoldOrnament from "./GoldOrnament";
+import ScrollReveal, { StaggerContainer, StaggerItem } from "./ScrollReveal";
 
 interface EventDetailsProps {
   guestEvent?: GuestEvent | null;
@@ -27,7 +26,7 @@ function getEvents(guestEvent?: GuestEvent | null) {
     {
       icon: Clock,
       title: "Thời Gian",
-      detail: `${WEDDING.time.receptionLabel}: ${receptionTime}`,
+      detail: `${isSameTime ? "Vào lúc" : WEDDING.time.receptionLabel}: ${receptionTime}`,
       sub: isSameTime ? "" : `${WEDDING.time.ceremonyLabel}: ${ceremonyTime}`,
     },
     {
@@ -41,7 +40,10 @@ function getEvents(guestEvent?: GuestEvent | null) {
 
 export default function EventDetails({ guestEvent }: EventDetailsProps) {
   return (
-    <section id="event" className="section-padding bg-bg-cream relative overflow-hidden">
+    <section
+      id="event"
+      className="section-padding bg-bg-cream relative overflow-hidden"
+    >
       {/* Background decorative image */}
       <div className="absolute top-0 right-0 w-1/3 h-full opacity-5">
         {/* <Image
