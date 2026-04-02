@@ -1,0 +1,13 @@
+{
+  "venues": [
+    {
+      "id": "default",
+      "name": "Nhà Gái",
+      "address": "Tỉnh Cà Mau",
+      "mapUrl": "https://www.google.com/maps/dir/?api=1&destination=9.410570,104.969164",
+      "videoUrl": "",
+      "showVideo": true,
+      "createdAt": "2026-04-02T00:00:00Z"
+    }
+  ]
+}

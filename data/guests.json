@@ -1,0 +1,17 @@
+{
+  "guests": [
+    {
+      "id": "mnh4hnhb-pj7g1",
+      "hostName": "Thảo Nguyên",
+      "hostSide": "bride",
+      "guestName": "Anh Duy Lam",
+      "guestTitle": "cùng gia đình",
+      "event": {
+        "time": "19:00"
+      },
+      "createdAt": "2026-04-02T06:57:50.879Z",
+      "invitationText": "vu-quy",
+      "venueId": "default"
+    }
+  ]
+}

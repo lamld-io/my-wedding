@@ -1,15 +1,17 @@
 "use client";
 
+import { Suspense } from "react";
 import dynamic from "next/dynamic";
 import HeroSection from "@/components/HeroSection";
 import CoupleSection from "@/components/CoupleSection";
-import CountdownTimer from "@/components/CountdownTimer";
+import InvitationCard from "@/components/InvitationCard";
 import EventDetails from "@/components/EventDetails";
 import PhotoGallery from "@/components/PhotoGallery";
 import MapSection from "@/components/MapSection";
 import VideoDirections from "@/components/VideoDirections";
 import WishBook from "@/components/WishBook";
 import Footer from "@/components/Footer";
+import { useGuestInfo } from "@/hooks/useGuestInfo";
 
 // Dynamic imports for non-critical components
 const SplashScreen = dynamic(() => import("@/components/SplashScreen"), {
@@ -22,7 +24,9 @@ const MusicPlayer = dynamic(() => import("@/components/MusicPlayer"), {
   ssr: false,
 });
 
-export default function Home() {
+function HomeContent() {
+  const { guest, isLoading } = useGuestInfo();
+
   return (
     <main className="relative">
       {/* Splash Screen - fullscreen overlay */}
@@ -37,13 +41,21 @@ export default function Home() {
       {/* Main Content Sections */}
       <HeroSection />
       <CoupleSection />
-      <CountdownTimer />
-      <EventDetails />
+      <InvitationCard guest={guest} isLoading={isLoading} />
+      <EventDetails guestEvent={guest?.event} />
       <PhotoGallery />
-      <MapSection />
-      <VideoDirections />
+      <MapSection guestEvent={guest?.event} />
+      <VideoDirections guestEvent={guest?.event} />
       <WishBook />
       <Footer />
     </main>
+  );
+}
+
+export default function Home() {
+  return (
+    <Suspense>
+      <HomeContent />
+    </Suspense>
   );
 }

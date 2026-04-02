@@ -4,10 +4,20 @@ import { WEDDING } from "@/lib/constants";
 import ScrollReveal from "./ScrollReveal";
 import GoldOrnament from "./GoldOrnament";
 import { MapPin, Navigation, ExternalLink } from "lucide-react";
+import type { GuestEvent } from "@/lib/types";
 
-export default function MapSection() {
-  const { venue } = WEDDING;
-  const mapEmbedUrl = `https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3000!2d${venue.coordinates.lng}!3d${venue.coordinates.lat}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zOcKwNTQnMjIuOCJOIDEwNsKwMDknMDguNiJF!5e0!3m2!1svi!2svn!4v1`;
+interface MapSectionProps {
+  guestEvent?: GuestEvent | null;
+}
+
+export default function MapSection({ guestEvent }: MapSectionProps) {
+  const venueName = guestEvent?.venueName || WEDDING.venue.name;
+  const venueAddress = guestEvent?.venueAddress || WEDDING.venue.address;
+  const mapsUrl = guestEvent?.venueMapUrl || WEDDING.venue.googleMapsUrl;
+
+  // Trích tọa độ từ URL nếu có, ngược lại dùng mặc định
+  const coords = extractCoords(mapsUrl) || WEDDING.venue.coordinates;
+  const mapEmbedUrl = `https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3000!2d${coords.lng}!3d${coords.lat}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zOcKwNTQnMjIuOCJOIDEwNsKwMDknMDguNiJF!5e0!3m2!1svi!2svn!4v1`;
 
   return (
     <section id="map" className="section-padding bg-bg-cream relative overflow-hidden">
@@ -33,14 +43,14 @@ export default function MapSection() {
               <div className="flex items-center justify-center gap-2 mb-3">
                 <MapPin className="w-5 h-5 text-primary" />
                 <h3 className="font-serif text-xl md:text-2xl text-primary-dark font-semibold">
-                  {venue.name}
+                  {venueName}
                 </h3>
               </div>
               <p className="font-sans text-text-body text-sm md:text-base mb-5">
-                {venue.address}
+                {venueAddress}
               </p>
               <a
-                href={venue.googleMapsUrl}
+                href={mapsUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-primary text-white font-sans text-sm tracking-wider hover:bg-primary-dark transition-colors duration-300 shadow-lg hover:shadow-xl cursor-pointer"
@@ -72,4 +82,20 @@ export default function MapSection() {
       </div>
     </section>
   );
+}
+
+/**
+ * Trích tọa độ lat,lng từ Google Maps URL.
+ * Hỗ trợ format: destination=lat,lng
+ */
+function extractCoords(url: string): { lat: number; lng: number } | null {
+  try {
+    const match = url.match(/destination=([-\d.]+),([-\d.]+)/);
+    if (match) {
+      return { lat: parseFloat(match[1]), lng: parseFloat(match[2]) };
+    }
+  } catch {
+    /* ignore */
+  }
+  return null;
 }

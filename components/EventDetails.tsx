@@ -1,34 +1,40 @@
 "use client";
 
-import Image from "next/image";
-import { WEDDING, SECTION_IMAGES } from "@/lib/constants";
+import { WEDDING } from "@/lib/constants";
 import ScrollReveal from "./ScrollReveal";
 import { StaggerContainer, StaggerItem } from "./ScrollReveal";
 import GoldOrnament from "./GoldOrnament";
 import { Calendar, Clock, MapPin } from "lucide-react";
+import type { GuestEvent } from "@/lib/types";
 
-const events = [
-  {
-    icon: Calendar,
-    title: "Ngày Tổ Chức",
-    detail: WEDDING.displayDateFull,
-    sub: "",
-  },
-  {
-    icon: Clock,
-    title: "Thời Gian",
-    detail: `${WEDDING.time.receptionLabel}: ${WEDDING.time.reception}`,
-    sub: `${WEDDING.time.ceremonyLabel}: ${WEDDING.time.ceremony}`,
-  },
-  {
-    icon: MapPin,
-    title: "Địa Điểm",
-    detail: WEDDING.venue.name,
-    sub: WEDDING.venue.address,
-  },
-];
+interface EventDetailsProps {
+  guestEvent?: GuestEvent | null;
+}
 
-export default function EventDetails() {
+function getEvents(guestEvent?: GuestEvent | null) {
+  return [
+    {
+      icon: Calendar,
+      title: "Ngày Tổ Chức",
+      detail: guestEvent?.displayDate || WEDDING.displayDateFull,
+      sub: "",
+    },
+    {
+      icon: Clock,
+      title: "Thời Gian",
+      detail: `${WEDDING.time.receptionLabel}: ${WEDDING.time.reception}`,
+      sub: `${WEDDING.time.ceremonyLabel}: ${guestEvent?.time || WEDDING.time.ceremony}`,
+    },
+    {
+      icon: MapPin,
+      title: "Địa Điểm",
+      detail: guestEvent?.venueName || WEDDING.venue.name,
+      sub: guestEvent?.venueAddress || WEDDING.venue.address,
+    },
+  ];
+}
+
+export default function EventDetails({ guestEvent }: EventDetailsProps) {
   return (
     <section id="event" className="section-padding bg-bg-cream relative overflow-hidden">
       {/* Background decorative image */}
@@ -60,7 +66,7 @@ export default function EventDetails() {
           className="grid grid-cols-1 sm:grid-cols-3 gap-5 md:gap-6 max-w-4xl mx-auto"
           staggerDelay={0.15}
         >
-          {events.map((event) => (
+          {getEvents(guestEvent).map((event) => (
             <StaggerItem key={event.title}>
               <div className="glass-card rounded-2xl p-6 md:p-8 text-center group hover:shadow-xl hover:border-gold/30 transition-all duration-300 h-full">
                 {/* Icon */}

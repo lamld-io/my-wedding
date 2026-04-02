@@ -1,0 +1,19 @@
+{
+  "templates": [
+    {
+      "id": "default",
+      "text": "đến dự Lễ Thành Hôn của chúng tôi",
+      "createdAt": "2026-04-02T00:00:00Z"
+    },
+    {
+      "id": "vu-quy",
+      "text": "đến dự Lễ Vu Quy của chúng tôi",
+      "createdAt": "2026-04-02T00:00:00Z"
+    },
+    {
+      "id": "tan-hon",
+      "text": "đến dự Lễ Tân Hôn của chúng tôi",
+      "createdAt": "2026-04-02T00:00:00Z"
+    }
+  ]
+}

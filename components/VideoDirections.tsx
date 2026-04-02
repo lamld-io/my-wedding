@@ -3,12 +3,21 @@
 import ScrollReveal from "./ScrollReveal";
 import GoldOrnament from "./GoldOrnament";
 import { Video, PlayCircle, Clock } from "lucide-react";
+import type { GuestEvent } from "@/lib/types";
 
 interface VideoDirectionsProps {
-  videoUrl?: string;
+  guestEvent?: GuestEvent | null;
+  defaultVideoUrl?: string;
 }
 
-export default function VideoDirections({ videoUrl }: VideoDirectionsProps) {
+export default function VideoDirections({ guestEvent, defaultVideoUrl }: VideoDirectionsProps) {
+  // Nếu venue cấu hình tắt video → ẩn hoàn toàn section
+  if (guestEvent?.showVideo === false) {
+    return null;
+  }
+
+  const videoUrl = guestEvent?.videoUrl || defaultVideoUrl;
+
   return (
     <section id="video" className="section-padding bg-white relative">
       <div className="container mx-auto px-4 md:px-6">
