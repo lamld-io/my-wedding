@@ -18,7 +18,7 @@ export const WEDDING = {
   displayDateFull: "Thứ Bảy, ngày 11 tháng 04 năm 2026",
   time: {
     reception: "13:00",
-    ceremony: "13:00",
+    ceremony: "13:00 - 17:00",
     receptionLabel: "Đón khách",
     ceremonyLabel: "Khai tiệc",
   },
@@ -301,9 +301,15 @@ export const SECTION_IMAGES = {
   hero: process.env.NEXT_PUBLIC_IMG_HERO || SECTION_IMAGES_DEFAULTS.hero,
   bride: process.env.NEXT_PUBLIC_IMG_BRIDE || SECTION_IMAGES_DEFAULTS.bride,
   groom: process.env.NEXT_PUBLIC_IMG_GROOM || SECTION_IMAGES_DEFAULTS.groom,
-  coupleLeft: process.env.NEXT_PUBLIC_IMG_COUPLE_LEFT || SECTION_IMAGES_DEFAULTS.coupleLeft,
-  coupleRight: process.env.NEXT_PUBLIC_IMG_COUPLE_RIGHT || SECTION_IMAGES_DEFAULTS.coupleRight,
-  countdown: process.env.NEXT_PUBLIC_IMG_COUNTDOWN || SECTION_IMAGES_DEFAULTS.countdown,
-  eventBg: process.env.NEXT_PUBLIC_IMG_EVENT_BG || SECTION_IMAGES_DEFAULTS.eventBg,
+  coupleLeft:
+    process.env.NEXT_PUBLIC_IMG_COUPLE_LEFT ||
+    SECTION_IMAGES_DEFAULTS.coupleLeft,
+  coupleRight:
+    process.env.NEXT_PUBLIC_IMG_COUPLE_RIGHT ||
+    SECTION_IMAGES_DEFAULTS.coupleRight,
+  countdown:
+    process.env.NEXT_PUBLIC_IMG_COUNTDOWN || SECTION_IMAGES_DEFAULTS.countdown,
+  eventBg:
+    process.env.NEXT_PUBLIC_IMG_EVENT_BG || SECTION_IMAGES_DEFAULTS.eventBg,
   footer: process.env.NEXT_PUBLIC_IMG_FOOTER || SECTION_IMAGES_DEFAULTS.footer,
 };
