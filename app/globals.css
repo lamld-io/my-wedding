@@ -557,6 +557,117 @@ body {
   color: rgba(255, 255, 255, 0.2);
 }
 
+/* Custom Admin Select */
+.admin-select {
+  position: relative;
+  width: 100%;
+}
+
+.admin-select-trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.625rem 0.875rem;
+  border-radius: 0.625rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.04);
+  color: white;
+  font-size: 0.875rem;
+  transition: all 0.2s;
+  outline: none;
+  cursor: pointer;
+  text-align: left;
+}
+
+.admin-select-trigger:hover {
+  border-color: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.admin-select-trigger:focus {
+  border-color: var(--color-gold);
+  box-shadow: 0 0 0 3px rgba(202, 138, 4, 0.1);
+}
+
+.admin-select-placeholder {
+  color: rgba(255, 255, 255, 0.2);
+}
+
+.admin-select-arrow {
+  width: 1rem;
+  height: 1rem;
+  color: rgba(255, 255, 255, 0.4);
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
+}
+
+.admin-select-arrow-open {
+  transform: rotate(180deg);
+}
+
+.admin-select-dropdown {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  z-index: 50;
+  background: #1a1225;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.625rem;
+  padding: 0.25rem;
+  box-shadow:
+    0 10px 40px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(255, 255, 255, 0.05);
+  max-height: 220px;
+  overflow-y: auto;
+  animation: adminSelectFadeIn 0.15s ease-out;
+}
+
+@keyframes adminSelectFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.admin-select-option {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+  border: none;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.15s;
+  text-align: left;
+}
+
+.admin-select-option:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: white;
+}
+
+.admin-select-option-selected {
+  background: rgba(202, 138, 4, 0.12);
+  color: var(--color-gold-light);
+}
+
+.admin-select-option-selected:hover {
+  background: rgba(202, 138, 4, 0.18);
+  color: var(--color-gold-light);
+}
+
 .admin-btn-primary {
   padding: 0.625rem 1.25rem;
   border-radius: 0.625rem;

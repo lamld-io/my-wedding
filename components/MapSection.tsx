@@ -17,7 +17,7 @@ export default function MapSection({ guestEvent }: MapSectionProps) {
 
   // Trích tọa độ từ URL nếu có, ngược lại dùng mặc định
   const coords = extractCoords(mapsUrl) || WEDDING.venue.coordinates;
-  const mapEmbedUrl = `https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3000!2d${coords.lng}!3d${coords.lat}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zOcKwNTQnMjIuOCJOIDEwNsKwMDknMDguNiJF!5e0!3m2!1svi!2svn!4v1`;
+  const mapEmbedUrl = `https://www.google.com/maps?q=${coords.lat},${coords.lng}&z=16&output=embed`;
 
   return (
     <section id="map" className="section-padding bg-bg-cream relative overflow-hidden">

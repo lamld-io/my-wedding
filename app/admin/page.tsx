@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import type { Guest, GuestEvent, Venue, InvitationTemplate } from "@/lib/types";
+import AdminSelect from "@/components/AdminSelect";
 import { WEDDING } from "@/lib/constants";
 import {
   Plus,
@@ -247,14 +248,14 @@ function GuestForm({ initialData, venues, templates, onSubmit, onCancel, isSubmi
         </div>
         <div>
           <label className="admin-label">Phía</label>
-          <select
+          <AdminSelect
             value={hostSide}
-            onChange={(e) => setHostSide(e.target.value as "groom" | "bride")}
-            className="admin-input"
-          >
-            <option value="groom">Nhà Trai</option>
-            <option value="bride">Nhà Gái</option>
-          </select>
+            onChange={(v) => setHostSide(v as "groom" | "bride")}
+            options={[
+              { value: "groom", label: "Nhà Trai" },
+              { value: "bride", label: "Nhà Gái" },
+            ]}
+          />
         </div>
       </div>
 
@@ -286,36 +287,28 @@ function GuestForm({ initialData, venues, templates, onSubmit, onCancel, isSubmi
       {/* Invitation text — template selector */}
       <div>
         <label className="admin-label">Mẫu lời mời</label>
-        <select
+        <AdminSelect
           value={invitationText}
-          onChange={(e) => setInvitationText(e.target.value)}
-          className="admin-input"
-        >
-          <option value="">— Mặc định: đến dự Lễ Thành Hôn của chúng tôi —</option>
-          {templates.map((t) => (
-            <option key={t.id} value={t.id}>
-              {t.text}
-            </option>
-          ))}
-        </select>
+          onChange={setInvitationText}
+          options={[
+            { value: "", label: "— Mặc định: đến dự Lễ Thành Hôn của chúng tôi —" },
+            ...templates.map((t) => ({ value: t.id, label: t.text })),
+          ]}
+        />
         <p className="text-[10px] text-white/30 mt-1">Quản lý mẫu ở tab &quot;Mẫu Lời Mời&quot;</p>
       </div>
 
       {/* Venue selector */}
       <div>
         <label className="admin-label">Địa điểm</label>
-        <select
+        <AdminSelect
           value={venueId}
-          onChange={(e) => setVenueId(e.target.value)}
-          className="admin-input"
-        >
-          <option value="">— Dùng mặc định —</option>
-          {venues.map((v) => (
-            <option key={v.id} value={v.id}>
-              {v.name} — {v.address}
-            </option>
-          ))}
-        </select>
+          onChange={setVenueId}
+          options={[
+            { value: "", label: "— Dùng mặc định —" },
+            ...venues.map((v) => ({ value: v.id, label: `${v.name} — ${v.address}` })),
+          ]}
+        />
         <p className="text-[10px] text-white/30 mt-1">Chọn địa điểm đã cấu hình sẵn. Quản lý ở tab &quot;Địa Điểm&quot;</p>
       </div>
 
